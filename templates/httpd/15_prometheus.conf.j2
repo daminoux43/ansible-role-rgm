@@ -1,7 +1,9 @@
 # {{ ansible_managed }}
 # Apache configuration for Prometheus
 
-<Location /prometheus>
+Alias /prometheus "/etc/prometheus"
+
+<Directory "/etc/prometheus">
     AuthType Basic
     AuthName "Restricted"
     AuthrgmAuthoritative On
@@ -11,10 +13,169 @@
     AuthrgmMySQLDB {{ db_rgmweb }}
     AuthrgmMySQLTableSID sessions,users,groupright
     AuthrgmMySQLFieldUID sessions.user_id
-    AuthrgmMySQLTableSIDCondition "`sessions`.`session_id`=$session_id AND `sessions`.`user_id`=$user_id AND `users`.`user_id`=$user_id AND `users`.`user_name`=$user_name AND `users`.`group_id`=$group_id AND `groupright`.`group_id`=$group_id"
+    AuthrgmMySQLTableSIDCondition "`sessions`.`session_id`=$session_id AND `sessions`.`user_id`
     AuthrgmPageLogin /login.php
     AuthrgmSessionCookies On
     Require valid-user
-    ProxyPass http://127.0.0.1:9090/prometheus
-    ProxyPassReverse http://127.0.0.1:9090/prometheus
+</Directory>
+
+<Location "/">
+    Redirect "/alerts" "/prometheus/alerts"
+    Redirect "/api" "/prometheus/api"
+    Redirect "/config" "/prometheus/config"
+    Redirect "/graph" "/prometheus/graph"
+    Redirect "/static" "/prometheus/static"
+    Redirect "/flags" "/prometheus/flags"
+    Redirect "/rules" "/prometheus/rules"
+    Redirect "/status" "/prometheus/status"
+    Redirect "/targets" "/prometheus/targets"
+</Location>
+
+<Location "/prometheus/alerts">
+    AuthType Basic
+    AuthName "Restricted"
+    AuthrgmAuthoritative On
+    AuthrgmMySQLSocket /var/lib/mysql/mysql.sock
+    AuthrgmMySQLUsername {{ mariadb_user }}
+    AuthrgmMySQLPassword {{ mariadb_pwd }}
+    AuthrgmMySQLDB {{ db_rgmweb }}
+    AuthrgmMySQLTableSID sessions,users,groupright
+    AuthrgmMySQLFieldUID sessions.user_id
+    AuthrgmMySQLTableSIDCondition "`sessions`.`session_id`=$session_id AND `sessions`.`user_id`
+    AuthrgmPageLogin /login.php
+    AuthrgmSessionCookies On
+    Require valid-user
+</Location>
+
+<Location "/prometheus/api>
+    AuthType Basic
+    AuthName "Restricted"
+    AuthrgmAuthoritative On
+    AuthrgmMySQLSocket /var/lib/mysql/mysql.sock
+    AuthrgmMySQLUsername {{ mariadb_user }}
+    AuthrgmMySQLPassword {{ mariadb_pwd }}
+    AuthrgmMySQLDB {{ db_rgmweb }}
+    AuthrgmMySQLTableSID sessions,users,groupright
+    AuthrgmMySQLFieldUID sessions.user_id
+    AuthrgmMySQLTableSIDCondition "`sessions`.`session_id`=$session_id AND `sessions`.`user_id`
+    AuthrgmPageLogin /login.php
+    AuthrgmSessionCookies On
+    Require valid-user
+</Location>
+
+<Location "/prometheus/config">
+    AuthType Basic
+    AuthName "Restricted"
+    AuthrgmAuthoritative On
+    AuthrgmMySQLSocket /var/lib/mysql/mysql.sock
+    AuthrgmMySQLUsername {{ mariadb_user }}
+    AuthrgmMySQLPassword {{ mariadb_pwd }}
+    AuthrgmMySQLDB {{ db_rgmweb }}
+    AuthrgmMySQLTableSID sessions,users,groupright
+    AuthrgmMySQLFieldUID sessions.user_id
+    AuthrgmMySQLTableSIDCondition "`sessions`.`session_id`=$session_id AND `sessions`.`user_id`
+    AuthrgmPageLogin /login.php
+    AuthrgmSessionCookies On
+    Require valid-user
+</Location>
+
+<Location "/prometheus/graph">
+    AuthType Basic
+    AuthName "Restricted"
+    AuthrgmAuthoritative On
+    AuthrgmMySQLSocket /var/lib/mysql/mysql.sock
+    AuthrgmMySQLUsername {{ mariadb_user }}
+    AuthrgmMySQLPassword {{ mariadb_pwd }}
+    AuthrgmMySQLDB {{ db_rgmweb }}
+    AuthrgmMySQLTableSID sessions,users,groupright
+    AuthrgmMySQLFieldUID sessions.user_id
+    AuthrgmMySQLTableSIDCondition "`sessions`.`session_id`=$session_id AND `sessions`.`user_id`
+    AuthrgmPageLogin /login.php
+    AuthrgmSessionCookies On
+    Require valid-user
+</Location>
+
+<Location "/prometheus/static">
+    AuthType Basic
+    AuthName "Restricted"
+    AuthrgmAuthoritative On
+    AuthrgmMySQLSocket /var/lib/mysql/mysql.sock
+    AuthrgmMySQLUsername {{ mariadb_user }}
+    AuthrgmMySQLPassword {{ mariadb_pwd }}
+    AuthrgmMySQLDB {{ db_rgmweb }}
+    AuthrgmMySQLTableSID sessions,users,groupright
+    AuthrgmMySQLFieldUID sessions.user_id
+    AuthrgmMySQLTableSIDCondition "`sessions`.`session_id`=$session_id AND `sessions`.`user_id`
+    AuthrgmPageLogin /login.php
+    AuthrgmSessionCookies On
+    Require valid-user
+</Location>
+
+<Location "/prometheus/flags">
+    AuthType Basic
+    AuthName "Restricted"
+    AuthrgmAuthoritative On
+    AuthrgmMySQLSocket /var/lib/mysql/mysql.sock
+    AuthrgmMySQLUsername {{ mariadb_user }}
+    AuthrgmMySQLPassword {{ mariadb_pwd }}
+    AuthrgmMySQLDB {{ db_rgmweb }}
+    AuthrgmMySQLTableSID sessions,users,groupright
+    AuthrgmMySQLFieldUID sessions.user_id
+    AuthrgmMySQLTableSIDCondition "`sessions`.`session_id`=$session_id AND `sessions`.`user_id`
+    AuthrgmPageLogin /login.php
+    AuthrgmSessionCookies On
+    Require valid-user
+</Location>
+
+<Location "/prometheus/rules">
+    AuthType Basic
+    AuthName "Restricted"
+    AuthrgmAuthoritative On
+    AuthrgmMySQLSocket /var/lib/mysql/mysql.sock
+    AuthrgmMySQLUsername {{ mariadb_user }}
+    AuthrgmMySQLPassword {{ mariadb_pwd }}
+    AuthrgmMySQLDB {{ db_rgmweb }}
+    AuthrgmMySQLTableSID sessions,users,groupright
+    AuthrgmMySQLFieldUID sessions.user_id
+    AuthrgmMySQLTableSIDCondition "`sessions`.`session_id`=$session_id AND `sessions`.`user_id`
+    AuthrgmPageLogin /login.php
+    AuthrgmSessionCookies On
+    Require valid-user
+</Location>
+
+<Location "/prometheus/status">
+    AuthType Basic
+    AuthName "Restricted"
+    AuthrgmAuthoritative On
+    AuthrgmMySQLSocket /var/lib/mysql/mysql.sock
+    AuthrgmMySQLUsername {{ mariadb_user }}
+    AuthrgmMySQLPassword {{ mariadb_pwd }}
+    AuthrgmMySQLDB {{ db_rgmweb }}
+    AuthrgmMySQLTableSID sessions,users,groupright
+    AuthrgmMySQLFieldUID sessions.user_id
+    AuthrgmMySQLTableSIDCondition "`sessions`.`session_id`=$session_id AND `sessions`.`user_id`
+    AuthrgmPageLogin /login.php
+    AuthrgmSessionCookies On
+    Require valid-user
+</Location>
+
+<Location "/prometheus/targets">
+    AuthType Basic
+    AuthName "Restricted"
+    AuthrgmAuthoritative On
+    AuthrgmMySQLSocket /var/lib/mysql/mysql.sock
+    AuthrgmMySQLUsername {{ mariadb_user }}
+    AuthrgmMySQLPassword {{ mariadb_pwd }}
+    AuthrgmMySQLDB {{ db_rgmweb }}
+    AuthrgmMySQLTableSID sessions,users,groupright
+    AuthrgmMySQLFieldUID sessions.user_id
+    AuthrgmMySQLTableSIDCondition "`sessions`.`session_id`=$session_id AND `sessions`.`user_id`
+    AuthrgmPageLogin /login.php
+    AuthrgmSessionCookies On
+    Require valid-user
+</Location>
+
+<Location /prometheus>
+    ProxyPass http://127.0.0.1:9090
+    ProxyPassReverse http://127.0.0.1:9090
 </Location>
